@@ -32,7 +32,7 @@ locationButton.on('click',()=>{
         return alert("Geolocation not supported!");
     }
     navigator.geolocation.getCurrentPosition((position)=>{
-        socket.emit('createLocationMethod',{
+        socket.emit('createLocationMessage',{
             latitude:position.coords.latitude,
             longitude:position.coords.longitude
         });
