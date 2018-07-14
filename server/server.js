@@ -16,17 +16,25 @@ app.use(express.static(publicPath));
 io.on('connection',(socket)=>{
     console.log('new user connected');
     socket.emit('newMessage',generateMessage("Admin","Welcome to the Chat app"));
+    
     socket.broadcast.emit('newMessage',generateMessage("Admin", "New user joined"));
-    socket.on('disconnect',()=>{
-        io.emit('newMessage',generateMessage("Admin","A user left the room"));        
-    });
-
+    
     socket.on('createMessage',(message,callback)=>{
         io.emit('newMessage',generateMessage(message.from,message.text));        
         if(callback){
             callback('this is from the server');
         }
     });  
+
+    socket.on('createLocationMessage',(coords)=>{
+        io.emit('newMessage', generateMessage('Admin',`${coords.latitude},${coords.longitude}`));
+    });
+
+    socket.on('disconnect',()=>{
+        io.emit('newMessage',generateMessage("Admin","A user left the room"));        
+    });
+    
+    
 });
 
 

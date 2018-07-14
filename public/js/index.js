@@ -32,7 +32,10 @@ locationButton.on('click',()=>{
         return alert("Geolocation not supported!");
     }
     navigator.geolocation.getCurrentPosition((position)=>{
-        console.log(position);
+        socket.emit('createLocationMethod',{
+            latitude:position.coords.latitude,
+            longitude:position.coords.longitude
+        });
     },()=>{
         alert('unable to fetch location');
     });
