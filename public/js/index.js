@@ -10,6 +10,15 @@ socket.on('newMessage',(message)=>{
     $('#messages').append(li);
 });
 
+socket.on('newLocationMessage',(message)=>{
+    var li = $('<li></li>');
+    var a =  $('<a target = "_blank">My current location</a>');
+    li.text(`${message.from}:`);
+    a.attr("href",message.url);
+    li.append(a);
+    $('#messages').append(li);
+});
+
 socket.on('disconnect', () => {
     console.log('Disconnected from server');
 }); 
