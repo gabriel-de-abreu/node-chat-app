@@ -21,8 +21,11 @@ io.on('connection',(socket)=>{
         console.log("batata");
     });
 
-    socket.on('createMessage',(message)=>{
-        io.emit('newMessage',generateMessage(message.from,message.text));
+    socket.on('createMessage',(message,callback)=>{
+        io.emit('newMessage',generateMessage(message.from,message.text));        
+        if(callback){
+            callback('this is from the server');
+        }
     });  
 });
 
