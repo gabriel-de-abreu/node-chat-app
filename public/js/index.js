@@ -4,7 +4,7 @@ socket.on('connect', () => {
 });
 
 socket.on('newMessage',(message)=>{
-    console.log('new message', message);
+    // console.log('new message', message);
     var li = $('<li></li>');
     li.text(`${message.from}:${message.text}`);
     $('#messages').append(li);
@@ -24,4 +24,16 @@ $('#message-form').on('submit',(e)=>{
 
     });
     $("[name=message]").val('');
+});
+
+var locationButton = $("#send-location");
+locationButton.on('click',()=>{
+    if(!navigator.geolocation){
+        return alert("Geolocation not supported!");
+    }
+    navigator.geolocation.getCurrentPosition((position)=>{
+        console.log(position);
+    },()=>{
+        alert('unable to fetch location');
+    });
 });
