@@ -25,12 +25,12 @@ socket.on('newLocationMessage',(message)=>{
         createdAt: formattedTime,
         url: message.url
     });
+    $('#messages').append(html);
     // var li = $('<li></li>');
     // var a =  $('<a target = "_blank">My current location</a>');
     // li.text(`${message.from} ${formattedTime}:`);
     // a.attr("href",message.url);
     // li.append(a);
-    // $('#messages').append(li);
 });
 
 socket.on('disconnect', () => {
