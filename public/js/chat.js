@@ -59,6 +59,14 @@ socket.on('newLocationMessage',(message)=>{
     // li.append(a);
 });
 
+socket.on('updateUserList',(users)=>{
+    var ol = $('<ol></ol>');
+    users.forEach((user) => {
+        ol.append($('<li></li>').text(user));
+    });
+    $('#users').html(ol);
+});
+
 socket.on('disconnect', () => {
 }); 
 
