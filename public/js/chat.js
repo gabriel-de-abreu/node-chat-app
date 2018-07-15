@@ -1,5 +1,14 @@
 var socket = io();
 socket.on('connect', () => {
+    var params = $.deparam(window.location.search);
+    socket.emit('join',params,(error)=>{
+        if(error){
+            alert(error);
+            window.location.href="/";
+        }else{
+            console.log("No error");
+        }
+    });
 });
 
 var scrollToBottom = () => {

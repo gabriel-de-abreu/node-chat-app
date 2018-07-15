@@ -3,6 +3,7 @@ const express = require('express');
 const socketIO= require('socket.io');
 const http = require('http');
 const {generateMessage,generateLocationMessage} = require('./utils/message');
+const {isRealString} = require('./utils/validation');
 
 var app = express();
 var server = http.createServer(app);
@@ -19,6 +20,13 @@ io.on('connection',(socket)=>{
     
     socket.broadcast.emit('newMessage',generateMessage("Admin", "New user joined"));
     
+    socket.on('join',(params,callback)=>{
+        if(!isRealString(params.name) || !isRealString(params.room)){
+            callback('Name and Room name are required');
+        }
+        callback();
+    });
+
     socket.on('createMessage',(message,callback)=>{
         io.emit('newMessage',generateMessage(message.from,message.text));        
         if(callback){
